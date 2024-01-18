@@ -3,19 +3,34 @@ hangman_words = ["ruby", "python", "coding", "array", "function", "server", "net
                  "template", "middleware", "library", "algorithm", "efficiency", "iteration", "agile", "debug", "script",
                  "object", "class", "array", "loop", "computer", "server", "framework", "version", "testing", "deploy", "secure"]
 
-# char_hash = Hash[('a'..'z').map { |char| [char, 1] }]
+char_hash = Hash[('a'..'z').map { |char| [char, 1] }]
 # puts char_hash
 
 selected_word=hangman_words.sample.chars  #to select random word and convert it into character array
 p selected_word
 
+#to track the duplicate characters at one time hash is created
+selected_word_hash=Hash.new
+idx=0
+selected_word.each do |char| 
+    if selected_word_hash.has_key?(char)
+        selected_word_hash[char]<<idx
+    else
+        arr=Array.new
+        arr<<idx
+        selected_word_hash[char]=arr
+    end
+    idx+=1
+end
+
+# p selected_word_hash
 
 len=selected_word.length # length of the selected
 # p len
 
-chances=len #worng guess can be made
+chances= selected_word.uniq.length #worng guess can be made
 
-guess=0  # to track if all the characters are guessed right
+guess=selected_word.uniq.length  # to track if all the characters are guessed right
 
 
 guessed_word=Array.new  # array to uppend the guessed word
@@ -28,30 +43,29 @@ end
 
 # to check if the chances are over or if the guess is done
 while chances>0 and len!=guess
-
-    gussed=false #to track if the letter is guessed correct
     p "guess a letter"
     gussed_char=gets.chomp
-    # if char_array.include? guessed_word
-    #to loop through the whole word
-    for i in 0...len
-        if(selected_word.at(i)==gussed_char)
-            gussed=true
-            guessed_word[i]=gussed_char
-            selected_word[i]=nil
-            break
-        end
+    # p char_hash
+    # p char_hash[gussed_char]
+    if char_hash[gussed_char]==0  #to check if the letter is already guessed or not
+        p "Letter #{gussed_char} is already guessed enter another Letter"
+        next
+    else 
+        char_hash[gussed_char]=0
     end
-    # end
-    p guessed_word.join(" ")
-    if(gussed==true)  #to increase guess or to decrease the chances if guessed correctly or wrong
-        guess+=1
+
+    if selected_word_hash.has_key?(gussed_char) #if the word has character guessed by user then the guessed word will be updated
+        selected_word_hash[gussed_char].each {|ele| guessed_word[ele]=gussed_char}
+        char_hash[gussed_char]=0
+        guess-=1
     else
         chances-=1
     end
 
+    p guessed_word.join(" ")
+
     #final result
-    if guess==len
+    if guess==0
         print "Congratulation you guessed the word right. The word is: "
         p guessed_word.join
         break
@@ -61,10 +75,5 @@ while chances>0 and len!=guess
         p guessed_word.join(" ")
         break
     end
-
-    # p "you have to guess #{len} characters"
-    p "you still have #{chances} wrong chances left"
-
-
-    
+    p "you still have #{chances} wrong chances left"    
 end
