@@ -1,6 +1,5 @@
 puts "Enter an integer:"
-input = gets.chomp
-n = Integer(input)
+n = gets.to_i
 flag = true;
 for a in 2..Math.sqrt(n) do 
     if(n%a==0)
