@@ -5,7 +5,6 @@ class Logic
     @name=gets.chomp
     p"Enter the population of #{@name} in billion"
     @population=gets.to_i
-    # p @population
     p"Enter the gdp of #{@name} in billion"
     @gdp=gets.to_i
     p"Enter the no of states in #{@name}"

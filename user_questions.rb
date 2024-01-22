@@ -1,9 +1,9 @@
-$LOAD_PATH << '.'
-require 'nation_info'
+require './logic'
+require './nation_info.rb'
 
-class UserQuestions<NationInfo
+class UserQuestions < Questions
 
-  def ask_question(name)
+  def ask_question
 
     another_question=true
 
@@ -17,14 +17,14 @@ class UserQuestions<NationInfo
 
       case question
       when 1
-        country.loan
+        loan
       when 2
-        country.un_membership
+        un_membership
       when 3
-        if country.war_win?
-          puts "#{name} can win the war"
+        if war_win?
+          puts "#{@name} can win the war"
         else
-          puts "#{name} can't win the war"
+          puts "#{@name} can't win the war"
         end
       end
 
@@ -39,4 +39,8 @@ class UserQuestions<NationInfo
   end
 end
 
-q=Questions.new
+
+nation = Logic.new
+nation.data_input
+q=UserQuestions.new(nation.name,nation.population,nation.gdp,nation.states,nation.army_strength,nation.state_of_country)
+q.ask_question
