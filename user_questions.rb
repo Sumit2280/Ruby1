@@ -1,4 +1,7 @@
-module UserQuestions
+$LOAD_PATH << '.'
+require 'nation_info'
+
+class UserQuestions<NationInfo
 
   def ask_question(name)
 
@@ -35,3 +38,5 @@ module UserQuestions
     end
   end
 end
+
+q=Questions.new

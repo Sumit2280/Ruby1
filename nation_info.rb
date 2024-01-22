@@ -40,8 +40,16 @@ class Questions<NationInfo
 
 end
 
-a = Logic.new
-a.data_input
+nation = Logic.new
+nation.data_input
+name=nation.name
+population=nation.population
+gdp=nation.gdp
+states=nation.states
+army_strength=nation.army_strength
+state_of_country=nation.state_of_country
+
+# attr_accessor :country
 # name=a.$name
 country=Questions.new(name,population,gdp,states,army_strength,state_of_country)
 
