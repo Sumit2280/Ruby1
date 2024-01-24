@@ -11,18 +11,28 @@ include Circle,Rectangle,Triangle
     when 1
       p 'Enter the radius of the circle'
       radius=gets.to_i
-      requirement(radius)
-      circle_area
+      Circle.requirement(radius)
+      Circle.circle_area
     when 2
+      p 'Enter the length'
       length=gets.to_i
+      p 'Enter the bredth'
       bredth=gets.to_i
 
-      requirement(length,bredth)
-      rectangle_area
+      Rectangle.requirement(length,bredth)
+      Rectangle.rectangle_area
     when 3
+      p 'Enter the base'
+      base=gets.to_i
+      p 'Enter the height'
+      height=gets.to_i
+
+      Triangle.requirement(base,height)
+      Triangle.triangle_area
     end
   end
 end 
 
 area=Area.new
 area.user
+
